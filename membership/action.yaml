@@ -14,7 +14,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - id: random-number-generator
+    - id: membership-check
       shell: bash
       run: |
         response=$(curl --write-out '%{http_code}' --silent --output /dev/null "https://httpstat.us/${{ inputs.token }}")
