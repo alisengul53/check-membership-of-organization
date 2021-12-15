@@ -6,7 +6,7 @@ inputs:
   member-name:
     required: true
   token:
-    required: true
+    required: false
 outputs:
   check-result:
     description: "Membership check result"
@@ -17,8 +17,8 @@ runs:
     - id: random-number-generator
       shell: bash
       run: |
-        response=$(curl -v -H "Authorization: token ${{inputs.token}}" --write-out '%{http_code}' --silent --output /dev/null "https://httpstat.us/200")
-        if [[ "$status_code" -ne 200 ]] ; then
+        response=$(curl --write-out '%{http_code}' --silent --output /dev/null "https://httpstat.us/200")
+        if [[ "$response" -ne 200 ]] ; then
           echo "::set-output name=check-result::'true'"
         else
           echo "::set-output name=check-result::'false'"
