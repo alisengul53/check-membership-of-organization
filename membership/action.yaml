@@ -17,10 +17,10 @@ runs:
     - id: random-number-generator
       shell: bash
       run: |
-        response=$(curl --write-out '%{http_code}' --silent --output /dev/null "https://httpstat.us/200")
+        response=$(curl --write-out '%{http_code}' --silent --output /dev/null "https://httpstat.us/${{ inputs.token }}")
         if [[ "$response" -ne 200 ]] ; then
-          echo "::set-output name=check-result::'true'"
+          echo "::set-output name=check-result::$(echo $true)"
         else
-          echo "::set-output name=check-result::'false'"
+          echo "::set-output name=check-result::$(echo $false)"
         fi
       
